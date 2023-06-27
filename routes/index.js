@@ -7,9 +7,8 @@ const { validateSignup, validateSignin } = require('../middlewares/requestvalida
 
 router.use('/signup',validateSignup(), createUser);
 router.use('/signin',validateSignin(), login);
-//router.use('/signin', validateSignin(), login);
 router.use('/users', usersRouter);
-//router.use('/movies', moviesRouter);
+router.use('/movies', moviesRouter);
 router.use('*', auth, (req, res, next) => {
   next(new NotFoundError('Страница не найдена!'));
 });
