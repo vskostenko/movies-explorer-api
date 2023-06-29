@@ -60,8 +60,7 @@ const login = (req, res, next) => {
 };
 
 const getUserProfile = (req, res, next) => {
-  console.log(req.body);
-  const userId = req.body._id;
+  const userId = req.user._id;
   User.findById(userId)
     .orFail(() => new NotFoundError('Пользователь с указанным id не существует'))
     .then((user) => res.send({
@@ -81,9 +80,8 @@ const getUserProfile = (req, res, next) => {
 };
 
 const updateUserProfile = (req, res, next) => {
-  console.log(req.body);
-  const { name, email } = req.body;
-  const userId = req.body._id;
+  const { name, email } = req;
+  const userId = req.user._id;
   User.findByIdAndUpdate(
     userId,
     { name, email },

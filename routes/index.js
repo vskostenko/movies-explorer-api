@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const usersRouter = require('./users');
+const moviesRouter = require('./movie');
 const { login, createUser } = require('../controllers/users');
 const { auth } = require('../middlewares/auth');
 const NotFoundError = require('../errors/not_found');
@@ -7,8 +8,8 @@ const { validateSignup, validateSignin } = require('../middlewares/requestvalida
 
 router.use('/signup',validateSignup(), createUser);
 router.use('/signin',validateSignin(), login);
-router.use('/users', usersRouter);
-router.use('/movies', moviesRouter);
+router.use('/users',auth, usersRouter);
+router.use('/movies',auth, moviesRouter);
 router.use('*', auth, (req, res, next) => {
   next(new NotFoundError('Страница не найдена!'));
 });
