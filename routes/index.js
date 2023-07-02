@@ -6,11 +6,11 @@ const { auth } = require('../middlewares/auth');
 const NotFoundError = require('../errors/not_found');
 const { validateSignup, validateSignin } = require('../middlewares/requestvalidator');
 
-router.use('/signup',validateSignup(), createUser);
-router.use('/signin',validateSignin(), login);
+router.use('/signup', validateSignup(), createUser);
+router.use('/signin', validateSignin(), login);
 router.use('/users',auth, usersRouter);
 router.use('/movies',auth, moviesRouter);
-router.use('*', auth, (req, res, next) => {
+router.use('*', (req, res, next) => {
   next(new NotFoundError('Страница не найдена!'));
 });
 

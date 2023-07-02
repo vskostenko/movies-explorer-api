@@ -26,9 +26,9 @@ const movieValidator = () => celebrate({
       duration: Joi.number().required(),
       year: Joi.string().min(4).max(4).required(),
       description: Joi.string().required(),
-      image: Joi.string().required(),
-      thumbnail: Joi.string().required(),
-      trailer: Joi.string().required(),
+      image: Joi.string().required().regex(linkImageRegExp),
+      thumbnail: Joi.string().required().regex(linkImageRegExp),
+      trailerLink: Joi.string().required().regex(urlRegExp),
       movieId: Joi.number().required(),
       nameRU: Joi.string().required(),
       nameEN: Joi.string().required(),
@@ -36,8 +36,24 @@ const movieValidator = () => celebrate({
   },
 );
 
+const deleteMovieValidator = () => celebrate({
+  params: Joi.object({
+    id: Joi.string().required().length(24).hex(),
+  }),
+});
+
+const updateUserValidator = celebrate({
+  body: Joi.object().keys({
+    name: Joi.string().min(2).max(30),
+    email: Joi.string().required().email(),
+  }),
+});
+
+
 module.exports = {
   validateSignin,
   validateSignup,
   movieValidator,
+  deleteMovieValidator,
+  updateUserValidator,
 };
