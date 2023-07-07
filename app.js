@@ -1,7 +1,7 @@
 const express = require('express');
-const router = require('./routes');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
+const router = require('./routes');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const serverError = require('./middlewares/serverError');
 
@@ -20,6 +20,6 @@ app.use(errors());
 app.use(serverError);
 
 app.listen(PORT, () => {
-    // Если всё работает, консоль покажет, какой порт приложение слушает
-    console.log(`App listening on port   ${PORT}`)
-})
+  // Если всё работает, консоль покажет, какой порт приложение слушает
+  console.log(`App listening on port   ${PORT}`);
+});

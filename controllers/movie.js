@@ -1,15 +1,12 @@
-const Movie = require('../models/movie');
 const http2 = require('http2');
+const Movie = require('../models/movie');
 const NotFoundError = require('../errors/not_found');
 const BadRequestError = require('../errors/bad_request');
 const ForbiddenError = require('../errors/forbidden');
 
-
-
 const createMovie = (req, res, next) => {
   const userId = req.user._id;
-  console.log ({...req.body, owner:userId});
-  Movie.create({...req.body, owner:userId})
+  Movie.create({ ...req.body, owner: userId })
     .then((newMovie) => {
       res.status(http2.constants.HTTP_STATUS_CREATED).send(newMovie);
     })
@@ -41,10 +38,10 @@ const deleteMovie = (req, res, next) => {
     })
     .then(() => res.send({ message: 'Фильм удален' }))
     .catch(next);
-}
+};
 
 module.exports = {
   createMovie,
   getMovies,
-  deleteMovie
+  deleteMovie,
 };

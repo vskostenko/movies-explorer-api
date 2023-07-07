@@ -1,21 +1,19 @@
 const http2 = require('http2');
-const User = require('../models/user');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const User = require('../models/user');
 require('dotenv').config();
 const NotFoundError = require('../errors/not_found');
 const BadRequestError = require('../errors/bad_request');
 const ConflictError = require('../errors/conflict');
-const bcrypt = require('bcrypt');
-
 
 const createUser = (req, res, next) => {
-  console.log(req.body);
   const {
-    email, password, name
+    email, password, name,
   } = req.body;
   bcrypt.hash(password, 10)
     .then((hash) => User.create({
-      email, password:hash, name
+      email, password: hash, name,
     }))
     .then((newUser) => {
       res.status(http2.constants.HTTP_STATUS_CREATED).send({
@@ -41,7 +39,6 @@ const login = (req, res, next) => {
   User.findUserByCredentials(email, password)
     .then((user) => {
       if (user) {
-        console.log(user);
         const { NODE_ENV, SECRET_KEY } = process.env;
         // создадим токен
         const token = jwt.sign(
