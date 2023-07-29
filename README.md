@@ -1,3 +1,9 @@
-# movies-explorer-api
+# Movies Explorer API
 
-Бэкэнд для дипломного проекта Movies Explorer
+## Описание
+
+REST API сервиса Movies Explorer.
+
+**адрес сервера:**
+
+`https://api.kinoman.nomoreparties.sbs`
