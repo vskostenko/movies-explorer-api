@@ -6,11 +6,13 @@ const router = require('./routes');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const serverError = require('./middlewares/serverError');
 const rateLimiter = require('./middlewares/ratelimiter');
+const cors = require('cors');
 
 const uri = process.env.MONGO_URI;
 const port = process.env.PORT;
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
